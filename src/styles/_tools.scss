@@ -1,0 +1,10 @@
+@import './_settings.scss';
+
+@function get-var($var-name) {
+  @return map-get($vars, $var-name);
+}
+
+@mixin var($property, $var-name) {
+  #{$property}: get-var($var-name);
+  #{$property}: var(--s-#{$var-name}, get-var($var-name));
+}

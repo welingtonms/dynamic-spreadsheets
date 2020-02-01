@@ -1,0 +1,7 @@
+@import './_settings.scss';
+
+:root {
+  @each $variable, $value in $vars {
+    --s-#{$variable}: #{$value};
+  }
+}
