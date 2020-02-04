@@ -1,14 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getSpreadsheet } from '../../state/selectors/spreadsheet.selector';
 
-import Spreadsheet from '../../components/spreadsheet/spreadsheet';
+import { addColumn } from '../../state/actions/spreadsheet.actions';
+import { Button } from '../../components/button';
+import { getSpreadsheet } from '../../state/selectors/spreadsheet.selector';
+import { Spreadsheet } from '../../components/spreadsheet';
 
 class SpreadsheetContainer extends React.Component {
   render() {
     const { spreadsheet } = this.props;
 
-    return <Spreadsheet {...spreadsheet} />;
+    return (
+      <article>
+        <Spreadsheet {...spreadsheet} />
+        <Button>Add column</Button>
+      </article>
+    );
   }
 }
 
@@ -16,4 +23,8 @@ const mapStateToProps = state => ({
   spreadsheet: getSpreadsheet(state)
 });
 
-export default connect(mapStateToProps)(SpreadsheetContainer);
+const mapDispatchToProps = {
+  addColumn
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SpreadsheetContainer);

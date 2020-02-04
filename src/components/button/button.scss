@@ -1,0 +1,38 @@
+@import '../../styles/_tools.scss';
+
+.s-button {
+  @include font;
+  @include disableable;
+  @include transition(background, color);
+
+  @include var(padding, spacing-md);
+  @include var(border-color, transparent);
+  @include var(background, color-background-light);
+  @include var(color, color-background-dark);
+
+  cursor: pointer;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid transparent;
+
+  text-transform: uppercase;
+
+  @include hoverable {
+    @include var(background, color-background-dark);
+    @include var(color, color-background-light);
+  }
+
+  &.-primary {
+    @include var(border-color, color-primary);
+    @include var(background, color-background-light);
+    @include var(color, color-primary);
+
+    @include hoverable {
+      @include var(background, color-primary);
+      @include var(color, color-background-light);
+    }
+  }
+}

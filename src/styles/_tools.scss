@@ -8,3 +8,64 @@
   #{$property}: get-var($var-name);
   #{$property}: var(--s-#{$var-name}, get-var($var-name));
 }
+
+@mixin disableable {
+  &.is-disabled,
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.25;
+
+    user-select: none;
+  }
+}
+
+@mixin font {
+  @include var(font-size, font-size-md);
+
+  font-family: 'Roboto', sans-serif;
+}
+
+@mixin hoverable($selectors: '') {
+  &:not(.is-disabled):not(:disabled)#{$selectors} {
+    &:hover {
+      @content;
+    }
+  }
+}
+
+// Based on https://github.com/NikFlip/transition-mixin/blob/master/transition-mixin.scss
+ @mixin transition($properties...) {
+  $declarations: ();
+
+  @each $declaration in $properties {
+      $duration: .25s;
+      $delay: false;
+      $timing-function: ease;
+      $property: all;
+
+      @if type-of($declaration) == 'map' {
+          $duration: if(map_get($declaration, 'duration'), #{map_get($declaration, 'duration')}, $duration);
+          $delay: if(map_get($declaration, 'delay'), #{map_get($declaration, 'delay')}, $delay);
+          $timing-function: if(map_get($declaration, 'timing-function'), #{map_get($declaration, 'timing-function')}, $timing-function);
+          $property: if(map_get($declaration, 'property'), #{map_get($declaration, 'property')}, $property);
+      } @else {
+          $property: $declaration;
+      }
+      
+      $delayValue: if($delay, ' ' + $delay, '');
+      $declarations: append($declarations, #{$property + ' ' + $duration + $delayValue + ' ' + $timing-function}, comma);
+  }
+
+  transition: $declarations;
+}
+
+@mixin visually-hidden {
+  position: absolute !important;
+  clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 0 !important;
+  border: 0 !important;
+  height: 1px !important;
+  width: 1px !important;
+  overflow: hidden;
+}
