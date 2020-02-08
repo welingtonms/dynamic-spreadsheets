@@ -9,6 +9,53 @@
   #{$property}: var(--s-#{$var-name}, get-var($var-name));
 }
 
+@mixin bordered(
+  $color: $border-color,
+  $sides: (
+    top: true,
+    right: true,
+    bottom: true,
+    left: true
+  )
+) {
+  $top: if(map_get($sides, 'top'), #{map_get($sides, 'top')}, false);
+  $right: if(map_get($sides, 'right'), #{map_get($sides, 'right')}, false);
+  $bottom: if(map_get($sides, 'bottom'), #{map_get($sides, 'bottom')}, false);
+  $left: if(map_get($sides, 'left'), #{map_get($sides, 'left')}, false);
+
+  @if ($top) {
+    @include var(border-top-color, $color);
+    border-top-width: 1px;
+    border-top-style: solid;
+  } @else {
+    border-top: none;
+  }
+
+  @if ($right) {
+    @include var(border-right-color, $color);
+    border-right-width: 1px;
+    border-right-style: solid;
+  } @else {
+    border-right: none;
+  }
+
+  @if ($bottom) {
+    @include var(border-bottom-color, $color);
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+  } @else {
+    border-bottom: none;
+  }
+
+  @if ($left) {
+    @include var(border-left-color, $color);
+    border-left-width: 1px;
+    border-left-style: solid;
+  } @else {
+    border-left: none;
+  }
+}
+
 @mixin disableable {
   &.is-disabled,
   &:disabled {
@@ -34,26 +81,46 @@
 }
 
 // Based on https://github.com/NikFlip/transition-mixin/blob/master/transition-mixin.scss
- @mixin transition($properties...) {
+@mixin transition($properties...) {
   $declarations: ();
 
   @each $declaration in $properties {
-      $duration: .25s;
-      $delay: false;
-      $timing-function: ease;
-      $property: all;
+    $duration: 0.25s;
+    $delay: false;
+    $timing-function: ease;
+    $property: all;
 
-      @if type-of($declaration) == 'map' {
-          $duration: if(map_get($declaration, 'duration'), #{map_get($declaration, 'duration')}, $duration);
-          $delay: if(map_get($declaration, 'delay'), #{map_get($declaration, 'delay')}, $delay);
-          $timing-function: if(map_get($declaration, 'timing-function'), #{map_get($declaration, 'timing-function')}, $timing-function);
-          $property: if(map_get($declaration, 'property'), #{map_get($declaration, 'property')}, $property);
-      } @else {
-          $property: $declaration;
-      }
-      
-      $delayValue: if($delay, ' ' + $delay, '');
-      $declarations: append($declarations, #{$property + ' ' + $duration + $delayValue + ' ' + $timing-function}, comma);
+    @if type-of($declaration) == 'map' {
+      $duration: if(
+        map_get($declaration, 'duration'),
+        #{map_get($declaration, 'duration')},
+        $duration
+      );
+      $delay: if(
+        map_get($declaration, 'delay'),
+        #{map_get($declaration, 'delay')},
+        $delay
+      );
+      $timing-function: if(
+        map_get($declaration, 'timing-function'),
+        #{map_get($declaration, 'timing-function')},
+        $timing-function
+      );
+      $property: if(
+        map_get($declaration, 'property'),
+        #{map_get($declaration, 'property')},
+        $property
+      );
+    } @else {
+      $property: $declaration;
+    }
+
+    $delayValue: if($delay, ' ' + $delay, '');
+    $declarations: append(
+      $declarations,
+      #{$property + ' ' + $duration + $delayValue + ' ' + $timing-function},
+      comma
+    );
   }
 
   transition: $declarations;

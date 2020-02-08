@@ -6,12 +6,9 @@ import './App.scss';
 
 function App() {
   return (
-    <div className="app">
-      <header className="header">Dynamic spreadsheet</header>
-      <main>
-        <SpreadsheetContainer />
-      </main>
-    </div>
+    <main className="app">
+      <SpreadsheetContainer />
+    </main>
   );
 }
 

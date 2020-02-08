@@ -1,0 +1,86 @@
+@import '../../styles/_tools.scss';
+
+.s-spreadsheet {
+  @include font;
+  @include var(padding, spacing-md);
+
+  border-collapse: collapse;
+
+  & .column {
+    @include var(padding-left, spacing-md);
+    @include var(padding-right, spacing-md);
+    @include var(padding-top, spacing-sm);
+    @include var(padding-bottom, spacing-sm);
+
+    text-align: left;
+
+    @include bordered(color-terciary);
+
+    &.-index {
+      width: 48px;
+      text-align: center;
+      padding-left: 0;
+      padding-right: 0;
+
+      @include var(background, color-terciary);
+      @include var(font-weight, font-weight-light);
+      @include var(font-size, font-size-sm);
+      @include var(border-color, border-color);
+    }
+
+    &.-date {
+      text-align: center;
+    }
+
+    &.-select {
+      text-align: center;
+    }
+
+    &.-text {
+      text-align: left;
+    }
+
+    &.-number {
+      text-align: center;
+    }
+  }
+
+  & .row {
+    @include var(background, color-white);
+  }
+
+  & > .caption {
+  }
+
+  & > .header {
+    position: sticky;
+    top: 0;
+
+    & > .row {
+      & > .column {
+        @include var(background, color-terciary);
+        @include var(color, color-black);
+        @include var(font-weight, font-weight-light);
+        @include var(font-size, font-size-sm);
+        @include var(border-color, border-color);
+        text-transform: uppercase;
+
+        // solution based on https://stackoverflow.com/questions/57141834/how-to-fix-position-of-table-header-and-scroll-only-table-body
+        // position: sticky;
+        // top: 0;
+      }
+    }
+  }
+
+  & > .body {
+    & > .row {
+      @include transition(background);
+
+      & > .column {
+      }
+    }
+  }
+
+  @include var(background, color-terciary);
+  @include var(color, color-primary);
+}

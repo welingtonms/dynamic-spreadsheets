@@ -1,3 +1,4 @@
-export function getSpreadsheet(state) {
-  return state.spreadsheets[0];
+export function getSpreadsheet(state, spreadsheet) {
+  console.log(state);
+  return state.spreadsheets[spreadsheet];
 }

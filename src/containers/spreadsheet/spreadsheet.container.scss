@@ -1,0 +1,24 @@
+@import '../../styles/_tools.scss';
+
+.spreadsheet-container {
+  display: flex;
+  flex-direction: column;
+
+  padding: 0;
+  margin: 0;
+
+  & > .tools {
+    @include var(padding-top, spacing-sm);
+    @include var(padding-right, spacing-md);
+    @include var(padding-bottom, spacing-sm);
+    @include var(padding-left, spacing-md);
+
+    @include bordered(
+      border-color,
+      (
+        top: true,
+        left: true
+      )
+    );
+  }
+}

@@ -7,13 +7,17 @@ const Button = ({
   type = 'button',
   children,
   className,
-  primary = false,
+  highlighted = false,
   ...others
 }) => {
   return (
     <button
       type={type}
-      className={classNames('s-button', { '-primary': primary }, className)}
+      className={classNames(
+        's-button',
+        { '-highlighted': highlighted },
+        className
+      )}
       {...others}
     >
       {children}
