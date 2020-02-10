@@ -5,6 +5,7 @@
   @include var(padding, spacing-md);
 
   border-collapse: collapse;
+  margin: 0;
 
   & .column {
     @include var(padding-left, spacing-md);
@@ -22,6 +23,7 @@
       padding-left: 0;
       padding-right: 0;
 
+      cursor: default;
       @include var(background, color-terciary);
       @include var(font-weight, font-weight-light);
       @include var(font-size, font-size-sm);

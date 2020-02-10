@@ -7,8 +7,8 @@
 
   @include var(padding-left, spacing-md);
   @include var(padding-right, spacing-md);
-  @include var(padding-top, spacing-sm);
-  @include var(padding-bottom, spacing-sm);
+  @include var(padding-top, spacing-md);
+  @include var(padding-bottom, spacing-md);
   @include var(border-color, transparent);
   @include var(background, color-white);
   @include var(color, color-primary);
@@ -23,8 +23,18 @@
 
   text-transform: uppercase;
 
+  &.-highlighted {
+    @include var(background, color-secondary);
+    @include var(color, color-white);
+
+    @include hoverable {
+      @include var(background, color-quartenary);
+      @include var(color, color-white);
+    }
+  }
+
   & + & {
-    @include var(margin-left, spacing-xs);
+    @include var(margin-left, spacing-sm);
     margin: {
       top: 0;
       right: 0;

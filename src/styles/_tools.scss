@@ -10,7 +10,7 @@
 }
 
 @mixin bordered(
-  $color: $border-color,
+  $color: border-color,
   $sides: (
     top: true,
     right: true,

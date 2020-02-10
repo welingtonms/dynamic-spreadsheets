@@ -1,0 +1,62 @@
+@import '../../styles/_tools.scss';
+
+.s-message {
+  @include font;
+  @include bordered;
+  @include transition(all);
+
+  position: relative;
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  margin: 0 0 0 auto;
+
+  animation: bounce-in 0.75s cubic-bezier(0.215, 0.61, 0.355, 1),
+    bounce-out 0.75s ease-in-out 4.5s;
+
+  &:not(:first-child) {
+    @include var(margin-top, spacing-md);
+  }
+
+  @include var(padding-top, spacing-md);
+  @include var(padding-right, spacing-md);
+  @include var(padding-bottom, spacing-md);
+  @include var(padding-left, spacing-md);
+  @include var(background, color-white);
+
+  & > .s-icon {
+    @include var(padding-right, spacing-sm);
+    width: 24px;
+    height: 24px;
+  }
+
+  &.-error {
+    @include var(border-color, color-danger);
+    @include var(background, color-danger);
+    @include var(color, color-white);
+  }
+
+  &.-info {
+    @include var(border-color, color-info);
+    @include var(background, color-info);
+    @include var(color, color-white);
+  }
+
+  &.-warn {
+    @include var(border-color, color-warn);
+    @include var(background, color-warn);
+    @include var(color, color-white);
+  }
+
+  &.-success {
+    @include var(border-color, color-success);
+    @include var(background, color-success);
+    @include var(color, color-white);
+  }
+
+  & + & {
+    @include var(margin-top, spacing-md);
+  }
+}

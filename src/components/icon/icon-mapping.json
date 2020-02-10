@@ -1,0 +1,7 @@
+{
+  "close": "cross",
+  "info": "wink",
+  "warn": "neutral",
+  "check": "happy",
+  "error": "confused"
+}

@@ -1,7 +1,71 @@
+// animations based on https://daneden.github.io/animate.css/
+
+@import './generic.reset';
 @import './_settings.scss';
 
 :root {
   @each $variable, $value in $vars {
     --s-#{$variable}: #{$value};
   }
+}
+
+@keyframes bounce-in {
+  0% {
+    opacity: 0;
+
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+
+  20% {
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+
+  40% {
+    transform: scale3d(0.9, 0.9, 0.9);
+  }
+
+  60% {
+    opacity: 1;
+
+    transform: scale3d(1.03, 1.03, 1.03);
+  }
+
+  80% {
+    transform: scale3d(0.97, 0.97, 0.97);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+.bounce-in {
+  animation-duration: 0.75s;
+  animation-name: bounce-in;
+}
+
+@keyframes bounce-out {
+  20% {
+    transform: scale3d(0.9, 0.9, 0.9);
+  }
+
+  50%,
+  55% {
+    opacity: 1;
+
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+
+  to {
+    opacity: 0;
+
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+}
+
+.bounce-out {
+  animation-name: bounce-out;
+  animation-delay: 4.5s;
 }

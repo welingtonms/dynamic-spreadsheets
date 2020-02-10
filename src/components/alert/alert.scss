@@ -1,0 +1,10 @@
+@import '../../styles/_tools.scss';
+
+.s-alert-manager {
+  position: fixed;
+
+  display: flex;
+  flex-direction: column;
+  @include var(top, spacing-md);
+  @include var(right, spacing-md);
+}

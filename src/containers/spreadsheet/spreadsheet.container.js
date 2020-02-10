@@ -1,40 +1,55 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import {
-  addColumn,
-  addRow,
-  editColumn
-} from '../../state/actions/spreadsheet.actions';
+import { addRow, editColumn } from '../../state/actions/spreadsheet.actions';
 import { Button } from '../../components/button';
 import { getSpreadsheet } from '../../state/selectors/spreadsheet.selector';
 import { Spreadsheet } from '../../components/spreadsheet';
 import generator from '../../test/data-generator';
+import AddColumModal from './add-column-modal';
+import { AlertManager } from '../../components/alert';
 
 import './spreadsheet.container.scss';
 
 class SpreadsheetContainer extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      showAddColumnModal: false
+    };
+  }
+
+  handleCloseAddColumnModal = () => {
+    this.setState({
+      showAddColumnModal: false
+    });
+  };
+
+  handleShowAddColumnModal = () => {
+    this.setState({
+      showAddColumnModal: true
+    });
+  };
+
   render() {
-    const { spreadsheet, addColumn, addRow, editColumn } = this.props;
+    const { spreadsheet, addRow, editColumn } = this.props;
     const { columns } = spreadsheet;
+    const { showAddColumnModal } = this.state;
+
     return (
       <article className="spreadsheet-container">
+        <AddColumModal
+          spreadsheet={spreadsheet}
+          open={showAddColumnModal}
+          onClose={this.handleCloseAddColumnModal}
+        />
+
         <div className="tools">
-          <Button
-            highlighted
-            onClick={() => {
-              addColumn('1', {
-                title: generator.word(),
-                type: 'text',
-                required: false
-              });
-            }}
-          >
-            Add column
-          </Button>
+          <Button onClick={this.handleShowAddColumnModal}>Add column</Button>
           <Button
             onClick={() => {
-              editColumn('1', {
+              editColumn(spreadsheet.id, {
                 row: 0,
                 column: 'name',
                 value: generator.name()
@@ -46,7 +61,7 @@ class SpreadsheetContainer extends React.Component {
           <Button
             onClick={() => {
               addRow(
-                '1',
+                spreadsheet.id,
                 columns.reduce(
                   (row, column) => {
                     return {
@@ -61,6 +76,16 @@ class SpreadsheetContainer extends React.Component {
           >
             Add row
           </Button>
+          <Button
+            onClick={() => {
+              AlertManager.show(
+                generator.sentence({ words: 6 }),
+                generator.pick(['error', 'warn', 'info', 'success'])
+              );
+            }}
+          >
+            Add message
+          </Button>
         </div>
         <Spreadsheet {...spreadsheet} />
       </article>
@@ -73,7 +98,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  addColumn,
   addRow,
   editColumn
 };

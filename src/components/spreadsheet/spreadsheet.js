@@ -1,6 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
 
+import {
+  getRequiredMessage,
+  getRequiredIndicator
+} from '../../utils/validation';
 import Cell from './cell';
 
 import './spreadsheet.scss';
@@ -31,10 +35,10 @@ class Spreadsheet extends React.PureComponent {
                   role="columnheader"
                   scope="col"
                   key={id}
-                  title={`${title}${required ? '(Required field)' : ''}`}
+                  title={`${required ? getRequiredMessage(title) : title}`}
                 >
                   {title}
-                  {required && '*'}
+                  {required && getRequiredIndicator()}
                 </th>
               ))}
             </tr>

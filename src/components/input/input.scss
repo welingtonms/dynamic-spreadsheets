@@ -1,0 +1,14 @@
+@import '../../styles/_tools.scss';
+
+.s-input {
+  @include font;
+  @include bordered(
+    border-color,
+    (
+      bottom: true
+    )
+  );
+
+  display: flex;
+  width: 100%;
+}

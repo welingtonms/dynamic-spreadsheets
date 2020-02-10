@@ -1,4 +1,4 @@
-import toKebabCase from 'lodash.kebabcase';
+import uuid from 'uuid/v4';
 
 export const ActionTypes = {
   ADD_COLUMN: 'ADD_COLUMN',
@@ -8,14 +8,14 @@ export const ActionTypes = {
 
 export function addColumn(
   spreadsheetID,
-  { title, required = false, type = 'text', ...others }
+  { id, title, required = false, type = 'text', ...others }
 ) {
   return {
     type: ActionTypes.ADD_COLUMN,
     payload: {
       spreadsheetID,
       column: {
-        id: toKebabCase(title),
+        id: id || uuid(),
         required,
         title,
         type,

@@ -1,0 +1,32 @@
+@import '../../styles/_tools.scss';
+
+.s-field {
+  @include font;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 0;
+  margin: 0;
+  border: none;
+
+  & > .label {
+    @include font;
+    text-transform: uppercase;
+    @include var(font-size, font-size-xs);
+    @include var(font-weight, font-weight-light);
+
+    margin-top: 0;
+    margin-right: 0;
+
+    @include var(margin-bottom, spacing-xs);
+    margin-left: 0;
+  }
+
+  & + & {
+    @include var(margin-top, spacing-lg);
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+  }
+}
