@@ -7,4 +7,9 @@
   flex-direction: column;
   @include var(top, spacing-md);
   @include var(right, spacing-md);
+
+  // & .s-message {
+  //   animation: fade-in 0.75s cubic-bezier(0.215, 0.61, 0.355, 1),
+  //     fade-out 0.75s cubic-bezier(0.215, 0.61, 0.355, 1) 4.5s;
+  // }
 }

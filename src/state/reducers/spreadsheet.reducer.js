@@ -5,6 +5,12 @@ import { append, evolve, pipe, prop, assoc, assocPath } from 'ramda';
 export default createReducer(
   {},
   {
+    [ActionTypes.ADD_SPREADSHEET]: (state, action) => {
+      const { payload } = action;
+      const { id, columns, rows } = payload;
+
+      return assoc(id, { id, columns, rows }, state);
+    },
     [ActionTypes.ADD_COLUMN]: (state, action) => {
       const { payload } = action;
       const { spreadsheetID, column } = payload;

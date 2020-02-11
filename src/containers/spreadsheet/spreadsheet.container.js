@@ -1,7 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { addRow, editColumn } from '../../state/actions/spreadsheet.actions';
+import {
+  addSpreadsheet,
+  addRow,
+  editColumn
+} from '../../state/actions/spreadsheet.actions';
 import { Button } from '../../components/button';
 import { getSpreadsheet } from '../../state/selectors/spreadsheet.selector';
 import { Spreadsheet } from '../../components/spreadsheet';
@@ -33,7 +37,7 @@ class SpreadsheetContainer extends React.Component {
   };
 
   render() {
-    const { spreadsheet, addRow, editColumn } = this.props;
+    const { spreadsheet, addRow, editColumn, addSpreadsheet } = this.props;
     const { columns } = spreadsheet;
     const { showAddColumnModal } = this.state;
 

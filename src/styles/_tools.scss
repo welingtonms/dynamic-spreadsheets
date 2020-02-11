@@ -87,7 +87,7 @@
   @each $declaration in $properties {
     $duration: 0.25s;
     $delay: false;
-    $timing-function: ease;
+    $timing-function: ease-in-out;
     $property: all;
 
     @if type-of($declaration) == 'map' {

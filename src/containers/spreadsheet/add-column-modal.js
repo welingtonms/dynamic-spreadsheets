@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import * as yup from 'yup';
 
 import { addColumn } from '../../state/actions/spreadsheet.actions';
+import { AlertManager } from '../../components/alert';
 import { Button } from '../../components/button';
 import { Checkbox } from '../../components/checkbox';
 import { Field } from '../../components/field';
@@ -42,6 +43,8 @@ class AddColumnModal extends React.Component {
       type,
       required
     });
+
+    AlertManager.success(`Column ${title} added!`);
 
     this.handleClose();
   };
@@ -105,11 +108,7 @@ class AddColumnModal extends React.Component {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button
-            disabled={!valid}
-            highlighted
-            onClick={this.handleAddColumnAndClose}
-          >
+          <Button disabled={!valid} highlighted onClick={this.handleAddColumn}>
             Add column &amp; Close
           </Button>
         </Modal.Footer>
