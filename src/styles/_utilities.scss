@@ -1,3 +1,9 @@
+@import './_tools.scss';
+
 .u-is-borderless {
   border: none !important;
+}
+
+.u-has-error {
+  background: get-var(color-danger--light) !important;
 }

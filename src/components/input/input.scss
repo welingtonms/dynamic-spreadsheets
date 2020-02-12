@@ -3,12 +3,7 @@
 .s-input {
   @include font;
   @include focusable;
-  @include bordered(
-    border-color,
-    (
-      bottom: true
-    )
-  );
+  @include bordered(border-color);
 
   display: flex;
 
@@ -16,6 +11,8 @@
   @include var(padding-right, spacing-md);
   @include var(padding-top, spacing-sm);
   @include var(padding-bottom, spacing-sm);
+
+  background: inherit;
 
   width: 100%;
 }

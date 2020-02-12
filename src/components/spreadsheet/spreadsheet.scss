@@ -42,7 +42,9 @@
     &.-text {
       text-align: left;
 
-      & > .s-input { border: none}
+      & .s-input {
+        border: none;
+      }
     }
 
     &.-number {

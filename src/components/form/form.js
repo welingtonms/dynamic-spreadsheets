@@ -22,10 +22,11 @@ class Form extends React.Component {
   }
 
   publish = () => {
-    const { fields, status } = this.state;
-    const { onUpdate } = this.props;
+    const { fields, status, errors } = this.state;
+    const { onChange } = this.props;
 
-    onUpdate && onUpdate({ fields, status, valid: status === STATUS.VALID });
+    onChange &&
+      onChange({ fields, status, errors, valid: status === STATUS.VALID });
   };
 
   handleChange = ({ target }) => {

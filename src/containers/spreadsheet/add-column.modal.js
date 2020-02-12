@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import classNames from 'classnames';
 import * as yup from 'yup';
 
 import { addColumn } from '../../state/actions/spreadsheet.actions';
@@ -13,6 +14,7 @@ import { Input } from '../../components/input';
 import { Message } from '../../components/message';
 import { Modal } from '../../components/modal';
 import { RadioGroup, Radio } from '../../components/radio-group';
+import { isNil } from 'ramda';
 
 class AddColumnModal extends React.Component {
   constructor(props) {
@@ -23,7 +25,7 @@ class AddColumnModal extends React.Component {
     };
   }
 
-  handleUpdate = ({ fields, status, valid }) => {
+  handleChange = ({ fields, status, valid }) => {
     this.setState({ fields, status, valid });
   };
 
@@ -54,14 +56,18 @@ class AddColumnModal extends React.Component {
     const { spreadsheet, addColumn, ...others } = this.props;
 
     return (
-      <Modal className="add-column-modal" {...others} onClose={this.handleClose}>
+      <Modal
+        className="add-column-modal"
+        {...others}
+        onClose={this.handleClose}
+      >
         <Modal.Header>
           <h1>Add new column</h1>
         </Modal.Header>
         <Modal.Body>
           <Form
             initial={INITIAL_STATE}
-            onUpdate={this.handleUpdate}
+            onChange={this.handleChange}
             schema={yup.object({
               title: yup
                 .string()
@@ -71,17 +77,6 @@ class AddColumnModal extends React.Component {
           >
             {({ fields, errors, onChange, onBlur }) => (
               <React.Fragment>
-                <Field label="Title" required>
-                  <Input
-                    name="title"
-                    onBlur={onBlur}
-                    onChange={onChange}
-                    value={fields.title}
-                  />
-                  {errors.title && (
-                    <Message borderless type="error">{errors.title}</Message>
-                  )}
-                </Field>
                 <Field>
                   <Checkbox
                     name="required"
@@ -90,6 +85,22 @@ class AddColumnModal extends React.Component {
                   >
                     Required column
                   </Checkbox>
+                </Field>
+                <Field required label="Title">
+                  <Input
+                    name="title"
+                    className={classNames({
+                      'u-has-error': !isNil(errors.title)
+                    })}
+                    onBlur={onBlur}
+                    onChange={onChange}
+                    value={fields.title}
+                  />
+                  {errors.title && (
+                    <Message borderless type="error">
+                      {errors.title}
+                    </Message>
+                  )}
                 </Field>
                 <RadioGroup label="Column type" onChange={onChange}>
                   {['text', 'number', 'date', 'list'].map(value => (

@@ -81,7 +81,7 @@
 @mixin font {
   @include var(font-size, font-size-md);
 
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Nunito Sans', sans-serif;
 }
 
 @mixin hoverable($selectors: '') {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import uuid from 'uuid/v4';
-import { map, forEach as each, range } from 'ramda';
+import { forEach as each, isEmpty, range } from 'ramda';
 
 import {
   addSpreadsheet,
@@ -14,7 +14,7 @@ import { getSpreadsheet } from '../../state/selectors/spreadsheet.selector';
 import { Spreadsheet } from '../../components/spreadsheet';
 import { Toolbar } from '../../components/toolbar';
 import { INITIAL_AMOUNT_OF_ROWS } from './constants';
-import AddColumModal from './add-column-modal';
+import AddColumModal from './add-column.modal';
 import generator from '../../test/data-generator';
 
 import './spreadsheet.container.scss';
@@ -47,22 +47,24 @@ class SpreadsheetContainer extends React.Component {
 
   renderSpreadsheetWorkspace = () => {
     const { spreadsheet, addRow } = this.props;
-    const { id } = spreadsheet;
+    const { id, columns } = spreadsheet;
 
     return (
       <React.Fragment>
         <Spreadsheet {...spreadsheet} />
         <Toolbar>
-          <Button
-            onClick={() => {
-              each(
-                () => addRow(id, { id: uuid() }),
-                range(0, INITIAL_AMOUNT_OF_ROWS)
-              );
-            }}
-          >
-            {`Add ${INITIAL_AMOUNT_OF_ROWS} rows`}
-          </Button>
+          {!isEmpty(columns) && (
+            <Button
+              onClick={() => {
+                each(
+                  () => addRow(id, { id: uuid() }),
+                  range(0, INITIAL_AMOUNT_OF_ROWS)
+                );
+              }}
+            >
+              {`Add ${INITIAL_AMOUNT_OF_ROWS} rows`}
+            </Button>
+          )}
         </Toolbar>
       </React.Fragment>
     );
