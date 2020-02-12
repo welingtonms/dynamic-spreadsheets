@@ -1,5 +1,4 @@
 import * as yup from 'yup';
-import { isNil, isEmpty } from 'ramda';
 
 export default {
   object: schema => {
@@ -24,7 +23,7 @@ export default {
     return schema;
   },
   date: ({ required }) => {
-    let schema = yup.date();
+    let schema = yup.date().typeError('Column value must be a date');
 
     if (required) {
       schema = schema.required('Required column');
@@ -32,8 +31,8 @@ export default {
 
     return schema;
   },
-  array: ({ required, values }) => {
-    let schema = yup.mixed().oneOf(values);
+  oneOf: ({ required, values }) => {
+    let schema = yup.string().oneOf(values);
 
     if (required) {
       schema = schema.required('Required column');

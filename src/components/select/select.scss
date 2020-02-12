@@ -1,0 +1,25 @@
+@import '../../styles/_tools.scss';
+
+.s-select {
+  @include font;
+  @include focusable;
+  @include bordered(border-color);
+
+  display: flex;
+
+  @include var(padding-left, spacing-md);
+  @include var(padding-right, spacing-md);
+  @include var(padding-top, spacing-sm);
+  @include var(padding-bottom, spacing-sm);
+
+  background-color: inherit;
+  appearance: none;
+  border-radius: 0;
+
+  background-image: url(./arrow.png);
+  background-position: calc(100% - 12px) center;
+  background-size: 12px;
+  background-repeat: no-repeat;
+
+  width: 100%;
+}

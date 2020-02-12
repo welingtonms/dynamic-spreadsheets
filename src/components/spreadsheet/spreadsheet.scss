@@ -41,14 +41,22 @@
 
     &.-text {
       text-align: left;
+    }
 
+    &.-number {
+      text-align: center;
+    }
+
+    &.-date, &.-text, &.-number {
       & .s-input {
         border: none;
       }
     }
 
-    &.-number {
-      text-align: center;
+    &.-select {
+      & .s-select {
+        border: none;
+      }
     }
   }
 

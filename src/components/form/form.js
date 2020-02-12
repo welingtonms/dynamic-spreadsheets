@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { assoc, isNil } from 'ramda';
+import { assoc, isNil, prop } from 'ramda';
 import { always, cond, equals } from 'ramda';
 
 import { to } from '../../utils/async';
@@ -30,23 +30,36 @@ class Form extends React.Component {
   };
 
   handleChange = ({ target }) => {
-    const { value, name, type, checked } = target;
+    const {
+      value,
+      name,
+      type,
+      checked,
+      options,
+      selectedIndex: selected
+    } = target;
     const { fields } = this.state;
 
     const handleChecked = () => assoc(name, checked, fields);
     const handleValue = () => assoc(name, value, fields);
+    const handleSelect = () => {
+      console.log('aaaaa');
+      return assoc(name, prop('value', options[selected]), fields);
+    };
 
-    this.setState({
-      fields: cond([
-        [equals('checkbox'), handleChecked],
-        [always(true), handleValue]
-      ])(type)
-    }, this.publish);
+    this.setState(
+      {
+        fields: cond([
+          [equals('select-one'), handleSelect],
+          [equals('checkbox'), handleChecked],
+          [always(true), handleValue]
+        ])(type)
+      },
+      this.publish
+    );
   };
 
-  handleBlur = () => {
-
-  }
+  handleBlur = () => {};
 
   validate = async () => {
     const { fields } = this.state;

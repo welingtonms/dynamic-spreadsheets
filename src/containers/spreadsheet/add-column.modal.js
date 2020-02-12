@@ -103,7 +103,7 @@ class AddColumnModal extends React.Component {
                   </Checkbox>
                 </Field>
                 <RadioGroup label="Column type" onChange={onChange}>
-                  {['text', 'number', 'date', 'list'].map(value => (
+                  {['text', 'number', 'date', 'select'].map(value => (
                     <Radio
                       key={value}
                       name="type"
