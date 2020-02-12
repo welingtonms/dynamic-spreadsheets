@@ -1,18 +1,17 @@
 import React from 'react';
-import classNames from 'classnames';
-import * as yup from 'yup';
-
-import { Input } from '../../input';
-import { Form } from '../../form';
-import { AlertManager } from '../../alert';
 import { isEmpty } from 'ramda';
+
+import { AlertManager } from '../../alert';
+import { Form } from '../../form';
+import { Input } from '../../input';
+import ValidationBuilder from '../validation';
 
 class TextCell extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.setup(props);
-
+    
     this.state = {
       fields: this.initial,
       status: '',
@@ -22,15 +21,12 @@ class TextCell extends React.PureComponent {
 
   setup(props) {
     const { value = '', column } = props;
-    const { title } = column;
+    const { required } = column;
 
     this.initial = { value };
 
-    this.schema = yup.object({
-      value: yup
-        .string()
-        .trim()
-        .required(`${title} is a required column`)
+    this.schema = ValidationBuilder.object({
+      value: ValidationBuilder.string({ required  })
     });
   }
 
@@ -41,7 +37,6 @@ class TextCell extends React.PureComponent {
     if (!isEmpty(errors)) {
       AlertManager.error(errors.value);
     }
-    console.log({ errors });
 
     onChange && onChange({ status });
   };

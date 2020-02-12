@@ -77,15 +77,6 @@ class AddColumnModal extends React.Component {
           >
             {({ fields, errors, onChange, onBlur }) => (
               <React.Fragment>
-                <Field>
-                  <Checkbox
-                    name="required"
-                    onChange={onChange}
-                    checked={fields.required}
-                  >
-                    Required column
-                  </Checkbox>
-                </Field>
                 <Field required label="Title">
                   <Input
                     name="title"
@@ -101,6 +92,15 @@ class AddColumnModal extends React.Component {
                       {errors.title}
                     </Message>
                   )}
+                </Field>
+                <Field>
+                  <Checkbox
+                    name="required"
+                    onChange={onChange}
+                    checked={fields.required}
+                  >
+                    Required column
+                  </Checkbox>
                 </Field>
                 <RadioGroup label="Column type" onChange={onChange}>
                   {['text', 'number', 'date', 'list'].map(value => (

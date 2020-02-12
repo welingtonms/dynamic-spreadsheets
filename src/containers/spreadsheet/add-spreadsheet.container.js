@@ -83,7 +83,7 @@ class SpreadsheetContainer extends React.Component {
         />
 
         <Toolbar>
-          <Button onClick={this.handleShowAddColumnModal}>Add column</Button>
+          <Button highlighted onClick={this.handleShowAddColumnModal}>Add column</Button>
           {/* <Button
             onClick={() => {
               editColumn(spreadsheet.id, {

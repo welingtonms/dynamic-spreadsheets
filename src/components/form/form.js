@@ -41,8 +41,12 @@ class Form extends React.Component {
         [equals('checkbox'), handleChecked],
         [always(true), handleValue]
       ])(type)
-    });
+    }, this.publish);
   };
+
+  handleBlur = () => {
+
+  }
 
   validate = async () => {
     const { fields } = this.state;
@@ -50,7 +54,8 @@ class Form extends React.Component {
 
     this.setState(
       {
-        status: STATUS.VALIDATING
+        status: STATUS.VALIDATING,
+        errors: {}
       },
       async () => {
         this.publish();
