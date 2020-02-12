@@ -4,7 +4,7 @@
   @include font;
   @include focusable;
   @include bordered(
-    color-secondary,
+    border-color,
     (
       bottom: true
     )
@@ -12,10 +12,10 @@
 
   display: flex;
 
+  @include var(padding-left, spacing-md);
+  @include var(padding-right, spacing-md);
   @include var(padding-top, spacing-sm);
-  padding-right: 0;
   @include var(padding-bottom, spacing-sm);
-  padding-left: 0;
 
   width: 100%;
 }

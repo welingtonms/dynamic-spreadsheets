@@ -69,7 +69,7 @@ class SpreadsheetContainer extends React.Component {
   };
 
   render() {
-    const { spreadsheet, addRow, editColumn } = this.props;
+    const { spreadsheet } = this.props;
     const { showAddColumnModal } = this.state;
 
     return (

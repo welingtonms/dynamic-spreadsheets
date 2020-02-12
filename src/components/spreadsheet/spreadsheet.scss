@@ -8,10 +8,11 @@
   margin: 0;
 
   & .column {
-    @include var(padding-left, spacing-md);
-    @include var(padding-right, spacing-md);
-    @include var(padding-top, spacing-sm);
-    @include var(padding-bottom, spacing-sm);
+    padding: 0;
+    // @include var(padding-left, spacing-md);
+    // @include var(padding-right, spacing-md);
+    // @include var(padding-top, spacing-sm);
+    // @include var(padding-bottom, spacing-sm);
 
     text-align: left;
 
@@ -40,6 +41,8 @@
 
     &.-text {
       text-align: left;
+
+      & > .s-input { border: none}
     }
 
     &.-number {

@@ -1,15 +1,12 @@
 import React from 'react';
 import { isNil } from 'ramda';
+import { Input } from '../../input';
 
 class TextCell extends React.PureComponent {
   render() {
-    const { value } = this.props;
+    const { value = '' } = this.props;
 
-    if (isNil(value)) {
-      return '';
-    }
-
-    return value;
+    return <Input defaultValue={value} />;
   }
 }
 
