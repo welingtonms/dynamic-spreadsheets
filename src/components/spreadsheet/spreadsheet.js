@@ -1,6 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
+import { isEmpty, isNil } from 'ramda';
 
+import { Message } from '../message';
 import {
   getRequiredMessage,
   getRequiredIndicator
@@ -12,6 +14,12 @@ import './spreadsheet.scss';
 class Spreadsheet extends React.PureComponent {
   render() {
     const { title, id, columns, rows } = this.props;
+
+    if (isNil(columns) || isEmpty(columns)) {
+      return (
+        <Message borderless>Add a column to start working on your spreadsheet!</Message>
+      )
+    }
 
     return (
       <React.Fragment>
@@ -73,6 +81,10 @@ class Spreadsheet extends React.PureComponent {
       </React.Fragment>
     );
   }
+}
+
+Spreadsheet.defaultProps = {
+
 }
 
 export default Spreadsheet;

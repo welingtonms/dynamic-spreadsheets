@@ -56,6 +56,18 @@
   }
 }
 
+@mixin focusable {
+  &:not(.is-disabled):not(:disabled) {
+    &.is-focused,
+    &:focus {
+      outline: 0;
+      animation: highlight 1.5s ease-in-out;
+
+      @content;
+    }
+  }
+}
+
 @mixin disableable {
   &.is-disabled,
   &:disabled {

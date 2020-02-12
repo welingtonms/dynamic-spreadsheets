@@ -6,7 +6,9 @@ import { Icon } from '../icon';
 
 import './message.scss';
 
-const Message = ({ type, children, className }) => {
+const Message = ({ type, borderless, children, className, mode = 'light' }) => {
+  const icon = ICON[type];
+
   return (
     <p
       role="status"
@@ -19,10 +21,17 @@ const Message = ({ type, children, className }) => {
           '-error': type === TYPE.ERROR,
           '-warn': type === TYPE.WARN
         },
+        {
+          '-light': mode === 'light',
+          '-dark': mode === 'dark'
+        },
+        {
+          'u-is-borderless': borderless
+        },
         className
       )}
     >
-      <Icon name={ICON[type]} />
+      {icon && <Icon name={icon} />}
 
       {children}
     </p>

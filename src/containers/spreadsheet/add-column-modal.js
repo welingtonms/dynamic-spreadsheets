@@ -54,7 +54,7 @@ class AddColumnModal extends React.Component {
     const { spreadsheet, addColumn, ...others } = this.props;
 
     return (
-      <Modal {...others} onClose={this.handleClose}>
+      <Modal className="add-column-modal" {...others} onClose={this.handleClose}>
         <Modal.Header>
           <h1>Add new column</h1>
         </Modal.Header>
@@ -79,7 +79,7 @@ class AddColumnModal extends React.Component {
                     value={fields.title}
                   />
                   {errors.title && (
-                    <Message type="error">{errors.title}</Message>
+                    <Message borderless type="error">{errors.title}</Message>
                   )}
                 </Field>
                 <Field>

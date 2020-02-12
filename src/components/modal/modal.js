@@ -1,4 +1,6 @@
 import React from 'react';
+import classNames from 'classnames';
+import OutsideClickHandler from 'react-outside-click-handler';
 
 import ModalBody from './modal-body';
 import ModalClose from './modal-close';
@@ -8,8 +10,14 @@ import ModalHeader from './modal-header';
 import './modal.scss';
 
 class Modal extends React.PureComponent {
+  handleClickOutside = e => {
+    const { onClose } = this.props;
+
+    onClose && onClose();
+  };
+
   render() {
-    const { onClose, open, children } = this.props;
+    const { className, onClose, open, children, ...others } = this.props;
 
     if (!open) {
       return null;
@@ -17,10 +25,12 @@ class Modal extends React.PureComponent {
 
     return (
       <div className="s-overlay">
-        <section className="s-modal">
-          <ModalClose onClose={onClose} />
-          {children}
-        </section>
+        <OutsideClickHandler display="contents" onOutsideClick={this.handleClickOutside}>
+          <section className={classNames('s-modal', className)} {...others}>
+            <ModalClose onClose={onClose} />
+            {children}
+          </section>
+        </OutsideClickHandler>
       </div>
     );
   }

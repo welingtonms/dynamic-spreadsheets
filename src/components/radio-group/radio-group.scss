@@ -5,6 +5,7 @@
 .s-radio-group {
   & > .s-radio {
     @include font;
+    @include focusable;
 
     cursor: pointer;
     user-select: none;

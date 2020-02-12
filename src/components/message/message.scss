@@ -11,46 +11,64 @@
   justify-content: flex-start;
   align-items: center;
 
-  margin: 0 0 0 auto;
+  margin: 0 auto;
 
-  &:not(:first-child) {
-    @include var(margin-top, spacing-md);
-  }
+  @include var(z-index, layer-default);
 
-  @include var(padding-top, spacing-md);
+  @include var(padding-top, spacing-sm);
   @include var(padding-right, spacing-md);
-  @include var(padding-bottom, spacing-md);
+  @include var(padding-bottom, spacing-sm);
   @include var(padding-left, spacing-md);
   @include var(background, color-white);
 
   & > .s-icon {
-    @include var(padding-right, spacing-sm);
+    @include var(padding-right, spacing-md);
     width: 24px;
     height: 24px;
   }
 
   &.-error {
     @include var(border-color, color-danger);
-    @include var(background, color-danger);
-    @include var(color, color-white);
+    @include var(color, color-danger);
+
+    &.-dark {
+      @include var(border-color, color-danger);
+      @include var(background, color-danger);
+      @include var(color, color-white);
+    }
   }
 
   &.-info {
     @include var(border-color, color-info);
-    @include var(background, color-info);
-    @include var(color, color-white);
+    @include var(color, color-info);
+
+    &.-dark {
+      @include var(border-color, color-info);
+      @include var(background, color-info);
+      @include var(color, color-white);
+    }
   }
 
   &.-warn {
     @include var(border-color, color-warn);
-    @include var(background, color-warn);
-    @include var(color, color-white);
+    @include var(color, color-warn);
+
+    &.-dark {
+      @include var(border-color, color-warn);
+      @include var(background, color-warn);
+      @include var(color, color-white);
+    }
   }
 
   &.-success {
     @include var(border-color, color-success);
-    @include var(background, color-success);
-    @include var(color, color-white);
+    @include var(color, color-success);
+
+    &.-dark {
+      @include var(border-color, color-success);
+      @include var(background, color-success);
+      @include var(color, color-white);
+    }
   }
 
   & + & {

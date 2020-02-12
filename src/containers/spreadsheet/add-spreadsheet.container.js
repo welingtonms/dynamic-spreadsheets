@@ -1,17 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import uuid from 'uuid/v4';
+import { map, forEach as each, range } from 'ramda';
 
 import {
   addSpreadsheet,
   addRow,
   editColumn
 } from '../../state/actions/spreadsheet.actions';
+import { AlertManager } from '../../components/alert';
 import { Button } from '../../components/button';
 import { getSpreadsheet } from '../../state/selectors/spreadsheet.selector';
 import { Spreadsheet } from '../../components/spreadsheet';
-import generator from '../../test/data-generator';
+import { Toolbar } from '../../components/toolbar';
+import { INITIAL_AMOUNT_OF_ROWS } from './constants';
 import AddColumModal from './add-column-modal';
-import { AlertManager } from '../../components/alert';
+import generator from '../../test/data-generator';
 
 import './spreadsheet.container.scss';
 
@@ -22,6 +26,11 @@ class SpreadsheetContainer extends React.Component {
     this.state = {
       showAddColumnModal: false
     };
+  }
+
+  componentDidMount() {
+    const { addSpreadsheet } = this.props;
+    addSpreadsheet(INITIAL_AMOUNT_OF_ROWS);
   }
 
   handleCloseAddColumnModal = () => {
@@ -36,9 +45,31 @@ class SpreadsheetContainer extends React.Component {
     });
   };
 
+  renderSpreadsheetWorkspace = () => {
+    const { spreadsheet, addRow } = this.props;
+    const { id } = spreadsheet;
+
+    return (
+      <React.Fragment>
+        <Spreadsheet {...spreadsheet} />
+        <Toolbar>
+          <Button
+            onClick={() => {
+              each(
+                () => addRow(id, { id: uuid() }),
+                range(0, INITIAL_AMOUNT_OF_ROWS)
+              );
+            }}
+          >
+            {`Add ${INITIAL_AMOUNT_OF_ROWS} rows`}
+          </Button>
+        </Toolbar>
+      </React.Fragment>
+    );
+  };
+
   render() {
-    const { spreadsheet, addRow, editColumn, addSpreadsheet } = this.props;
-    const { columns } = spreadsheet;
+    const { spreadsheet, addRow, editColumn } = this.props;
     const { showAddColumnModal } = this.state;
 
     return (
@@ -49,9 +80,9 @@ class SpreadsheetContainer extends React.Component {
           onClose={this.handleCloseAddColumnModal}
         />
 
-        <div className="tools">
+        <Toolbar>
           <Button onClick={this.handleShowAddColumnModal}>Add column</Button>
-          <Button
+          {/* <Button
             onClick={() => {
               editColumn(spreadsheet.id, {
                 row: 0,
@@ -79,29 +110,31 @@ class SpreadsheetContainer extends React.Component {
             }}
           >
             Add row
-          </Button>
+          </Button> */}
           <Button
             onClick={() => {
               AlertManager.show(
-                generator.sentence({ words: 6 }),
+                generator.sentence({ words: 15 }),
                 generator.pick(['error', 'warn', 'info', 'success'])
               );
             }}
           >
             Add message
           </Button>
-        </div>
-        <Spreadsheet {...spreadsheet} />
+        </Toolbar>
+        {spreadsheet && this.renderSpreadsheetWorkspace()}
+        {!spreadsheet && 'aa'}
       </article>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  spreadsheet: getSpreadsheet(state, '1')
+  spreadsheet: getSpreadsheet(state)
 });
 
 const mapDispatchToProps = {
+  addSpreadsheet,
   addRow,
   editColumn
 };

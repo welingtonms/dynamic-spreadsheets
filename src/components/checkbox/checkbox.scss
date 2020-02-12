@@ -4,6 +4,7 @@
 
 .s-checkbox {
   @include font;
+  @include focusable;
 
   cursor: pointer;
   user-select: none;

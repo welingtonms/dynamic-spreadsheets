@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { AlertManager } from './components/alert';
-import SpreadsheetContainer from './containers/spreadsheet/spreadsheet.container';
+import SpreadsheetContainer from './containers/spreadsheet/add-spreadsheet.container';
 
 import './App.scss';
 

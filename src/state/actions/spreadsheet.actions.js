@@ -1,4 +1,5 @@
 import uuid from 'uuid/v4';
+import { map, range } from 'ramda';
 
 export const ActionTypes = {
   ADD_SPREADSHEET: 'ADD_ADD_SPREADSHEET',
@@ -13,7 +14,7 @@ export function addSpreadsheet(amountOfRows) {
     payload: {
       id: uuid(),
       columns: [],
-      rows: Array(amountOfRows).fill({})
+      rows: map(() => ({ id: uuid() }), range(0, amountOfRows))
     }
   };
 }

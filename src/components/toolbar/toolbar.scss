@@ -1,0 +1,10 @@
+@import '../../styles/_tools.scss';
+
+.s-toolbar {
+  @include var(padding-top, spacing-sm);
+  @include var(padding-right, spacing-md);
+  @include var(padding-bottom, spacing-sm);
+  @include var(padding-left, spacing-md);
+
+  margin: 0;
+}
