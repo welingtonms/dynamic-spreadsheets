@@ -21,12 +21,12 @@ class SelectCell extends React.PureComponent {
 
   setup(props) {
     const { value = '', column } = props;
-    const { required } = column;
+    const { required, list } = column;
 
     this.initial = { value };
 
     this.schema = ValidationBuilder.object({
-      value: ValidationBuilder.oneOf({ required, values: ['a', 'b'] })
+      value: ValidationBuilder.oneOf({ required, values: list })
     });
   }
 
@@ -38,7 +38,29 @@ class SelectCell extends React.PureComponent {
       AlertManager.error(errors.value);
     }
 
-    onChange && onChange({ status });
+    onChange && onChange({ status, ...fields });
+  };
+
+  renderSelect = ({ fields, onChange, onBlur }) => {
+    const { column } = this.props;
+    const { list = [] } = column;
+
+    return (
+      <Select
+        name="value"
+        className="s-select"
+        onBlur={onBlur}
+        onChange={onChange}
+        value={fields.value}
+      >
+        <option value={undefined}></option>
+        {list.map(value => (
+          <option key={value} value={value}>
+            {value}
+          </option>
+        ))}
+      </Select>
+    );
   };
 
   render() {
@@ -48,19 +70,7 @@ class SelectCell extends React.PureComponent {
         onChange={this.handleChange}
         schema={this.schema}
       >
-        {({ fields, onChange, onBlur }) => (
-          <Select
-            name="value"
-            className="s-select"
-            onBlur={onBlur}
-            onChange={onChange}
-            value={fields.value}
-          >
-            <option value={undefined}></option>
-            <option value="a">a</option>
-            <option value="b">b</option>
-          </Select>
-        )}
+        {this.renderSelect}
       </Form>
     );
   }

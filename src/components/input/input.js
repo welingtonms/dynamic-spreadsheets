@@ -11,6 +11,7 @@ class Input extends React.PureComponent {
       <input
         type={type}
         className={classNames('s-input', className)}
+        data-test="c-input"
         {...others}
       />
     );

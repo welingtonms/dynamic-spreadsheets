@@ -36,6 +36,7 @@ class ModalClose extends React.PureComponent {
         className="close"
         {...omit(OMIT_PROPS, this.props)}
         onClick={this.handleClose}
+        data-test="c-modal-close"
       >
         &times;
       </Button>

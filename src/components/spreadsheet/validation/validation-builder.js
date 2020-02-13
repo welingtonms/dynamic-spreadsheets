@@ -32,11 +32,13 @@ export default {
     return schema;
   },
   oneOf: ({ required, values }) => {
-    let schema = yup.string().oneOf(values);
+    let schema = yup.string();
 
     if (required) {
       schema = schema.required('Required column');
     }
+
+    schema = schema.oneOf(values);
 
     return schema;
   }

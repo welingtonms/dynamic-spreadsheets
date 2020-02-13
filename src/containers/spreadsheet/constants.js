@@ -1,6 +1,7 @@
 export const INITIAL_STATE = {
   type: 'text',
   title: '',
+  list: '',
   required: false
 };
 

@@ -11,7 +11,7 @@ class TextCell extends React.PureComponent {
     super(props);
 
     this.setup(props);
-    
+
     this.state = {
       fields: this.initial,
       status: '',
@@ -26,7 +26,7 @@ class TextCell extends React.PureComponent {
     this.initial = { value };
 
     this.schema = ValidationBuilder.object({
-      value: ValidationBuilder.string({ required  })
+      value: ValidationBuilder.string({ required })
     });
   }
 
@@ -38,8 +38,17 @@ class TextCell extends React.PureComponent {
       AlertManager.error(errors.value);
     }
 
-    onChange && onChange({ status });
+    onChange && onChange({ status, ...fields });
   };
+
+  renderInput = ({ fields, onChange, onBlur }) => (
+    <Input
+      name="value"
+      onBlur={onBlur}
+      onChange={onChange}
+      value={fields.value}
+    />
+  );
 
   render() {
     return (
@@ -48,14 +57,7 @@ class TextCell extends React.PureComponent {
         onChange={this.handleChange}
         schema={this.schema}
       >
-        {({ fields, onChange, onBlur }) => (
-          <Input
-            name="value"
-            onBlur={onBlur}
-            onChange={onChange}
-            value={fields.value}
-          />
-        )}
+        {this.renderInput}
       </Form>
     );
   }

@@ -1,21 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import uuid from 'uuid/v4';
 import { forEach as each, isEmpty, range } from 'ramda';
+import uuid from 'uuid/v4';
 
 import {
   addSpreadsheet,
   addRow,
   editColumn
 } from '../../state/actions/spreadsheet.actions';
-import { AlertManager } from '../../components/alert';
 import { Button } from '../../components/button';
 import { getSpreadsheet } from '../../state/selectors/spreadsheet.selector';
+import { INITIAL_AMOUNT_OF_ROWS } from './constants';
 import { Spreadsheet } from '../../components/spreadsheet';
 import { Toolbar } from '../../components/toolbar';
-import { INITIAL_AMOUNT_OF_ROWS } from './constants';
 import AddColumModal from './add-column.modal';
-import generator from '../../test/data-generator';
 
 import './spreadsheet.container.scss';
 
@@ -45,23 +43,29 @@ class SpreadsheetContainer extends React.Component {
     });
   };
 
-  renderSpreadsheetWorkspace = () => {
+  handleAddMoreRows = () => {
     const { spreadsheet, addRow } = this.props;
-    const { id, columns } = spreadsheet;
+    const { id } = spreadsheet;
+
+    each(() => addRow(id, { id: uuid() }), range(0, INITIAL_AMOUNT_OF_ROWS));
+  };
+
+  handleEditSpreadsheet = data => {
+    const { editColumn, spreadsheet } = this.props;
+
+    editColumn(spreadsheet.id, data);
+  };
+
+  renderSpreadsheetWorkspace = () => {
+    const { spreadsheet } = this.props;
+    const { columns } = spreadsheet;
 
     return (
       <React.Fragment>
-        <Spreadsheet {...spreadsheet} />
+        <Spreadsheet {...spreadsheet} onChange={this.handleEditSpreadsheet} />
         <Toolbar>
           {!isEmpty(columns) && (
-            <Button
-              onClick={() => {
-                each(
-                  () => addRow(id, { id: uuid() }),
-                  range(0, INITIAL_AMOUNT_OF_ROWS)
-                );
-              }}
-            >
+            <Button onClick={this.handleAddMoreRows}>
               {`Add ${INITIAL_AMOUNT_OF_ROWS} rows`}
             </Button>
           )}
@@ -75,57 +79,25 @@ class SpreadsheetContainer extends React.Component {
     const { showAddColumnModal } = this.state;
 
     return (
-      <article className="spreadsheet-container">
+      <article
+        className="spreadsheet-container"
+        data-test="c-spreadsheet-container"
+      >
         <AddColumModal
           spreadsheet={spreadsheet}
           open={showAddColumnModal}
           onClose={this.handleCloseAddColumnModal}
         />
-
         <Toolbar>
-          <Button highlighted onClick={this.handleShowAddColumnModal}>Add column</Button>
-          {/* <Button
-            onClick={() => {
-              editColumn(spreadsheet.id, {
-                row: 0,
-                column: 'name',
-                value: generator.name()
-              });
-            }}
-          >
-            Edit column
-          </Button>
           <Button
-            onClick={() => {
-              addRow(
-                spreadsheet.id,
-                columns.reduce(
-                  (row, column) => {
-                    return {
-                      ...row,
-                      [column.id]: generator.word()
-                    };
-                  },
-                  { id: generator.guid() }
-                )
-              );
-            }}
+            highlighted
+            onClick={this.handleShowAddColumnModal}
+            data-test="c-open-add-column-modal"
           >
-            Add row
-          </Button> */}
-          <Button
-            onClick={() => {
-              AlertManager.show(
-                generator.sentence({ words: 15 }),
-                generator.pick(['error', 'warn', 'info', 'success'])
-              );
-            }}
-          >
-            Add message
+            Add column
           </Button>
         </Toolbar>
         {spreadsheet && this.renderSpreadsheetWorkspace()}
-        {!spreadsheet && 'aa'}
       </article>
     );
   }

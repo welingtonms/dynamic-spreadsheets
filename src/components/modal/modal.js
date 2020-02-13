@@ -25,8 +25,15 @@ class Modal extends React.PureComponent {
 
     return (
       <div className="s-overlay">
-        <OutsideClickHandler display="contents" onOutsideClick={this.handleClickOutside}>
-          <section className={classNames('s-modal', className)} {...others}>
+        <OutsideClickHandler
+          display="contents"
+          onOutsideClick={this.handleClickOutside}
+        >
+          <section
+            className={classNames('s-modal', className)}
+            data-test="c-modal"
+            {...others}
+          >
             <ModalClose onClose={onClose} />
             {children}
           </section>

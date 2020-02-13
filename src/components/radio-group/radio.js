@@ -14,7 +14,11 @@ class Radio extends React.PureComponent {
     const { children, className, ...others } = this.props;
 
     return (
-      <label htmlFor={this.id} className={classNames('s-radio', className)}>
+      <label
+        htmlFor={this.id}
+        className={classNames('s-radio', className)}
+        data-test="c-radio"
+      >
         {children}
         <input {...others} id={this.id} type="radio" />
         <span className="checkmark" />

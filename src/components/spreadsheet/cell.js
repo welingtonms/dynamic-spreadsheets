@@ -16,11 +16,12 @@ const areEqual = (prev, next) => {
   return ['value', 'status'].every(prop => equals(prev[prop], next[prop]));
 };
 
-const Cell = React.memo(({ column, ...others }) => {
+const Cell = React.memo(({ column, onChange, row, ...others }) => {
   const [status, setStatus] = React.useState('');
 
-  const handleChange = ({ status }) => {
+  const handleChange = ({ status, value }) => {
     setStatus(status);
+    onChange && onChange({ row, column: column.id, value });
   };
 
   const { required, type } = column;

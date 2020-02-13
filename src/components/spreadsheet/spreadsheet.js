@@ -13,7 +13,7 @@ import './spreadsheet.scss';
 
 class Spreadsheet extends React.PureComponent {
   render() {
-    const { title, id, columns, rows } = this.props;
+    const { className, columns, id, onChange, rows, title } = this.props;
 
     if (isNil(columns) || isEmpty(columns)) {
       return (
@@ -24,13 +24,16 @@ class Spreadsheet extends React.PureComponent {
     }
 
     return (
-      <table className="s-spreadsheet">
+      <table
+        className={classNames('s-spreadsheet', className)}
+        data-test="c-spreadsheet"
+      >
         {title && (
           <caption className="caption" id={`caption-${id}`}>
             {title}
           </caption>
         )}
-        <thead className="header">
+        <thead className="header" data-test="c-spreadsheet-header">
           <tr className="row">
             <th className="column -index"></th>
             {columns.map(({ id, type, title, required = false }) => (
@@ -45,6 +48,7 @@ class Spreadsheet extends React.PureComponent {
                 scope="col"
                 key={id}
                 title={`${required ? getRequiredMessage(title) : title}`}
+                data-test="c-column-header"
               >
                 {title}
                 {required && getRequiredIndicator()}
@@ -52,12 +56,18 @@ class Spreadsheet extends React.PureComponent {
             ))}
           </tr>
         </thead>
-        <tbody className="body">
+        <tbody className="body" data-test="c-spreadsheet-body">
           {rows.map((row, index) => (
             <tr className="row" key={row.id}>
               <th className="column -index">{index + 1}</th>
               {columns.map(column => (
-                <Cell key={column.id} column={column} value={row[column.id]} />
+                <Cell
+                  key={column.id}
+                  column={column}
+                  onChange={onChange}
+                  row={index}
+                  value={row[column.id]}
+                />
               ))}
             </tr>
           ))}

@@ -20,11 +20,7 @@
     @include var(padding-left, spacing-lg);
 
     & > input {
-      position: absolute;
-      opacity: 0;
-      cursor: pointer;
-      height: 0;
-      width: 0;
+      @include visually-hidden;
     }
 
     & > .checkmark {

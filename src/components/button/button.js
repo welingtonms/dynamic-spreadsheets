@@ -18,6 +18,7 @@ const Button = ({
         { '-highlighted': highlighted },
         className
       )}
+      data-test="c-button"
       {...others}
     >
       {children}
