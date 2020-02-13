@@ -87,7 +87,7 @@ AlertManager.error = message => {
 };
 
 AlertManager.success = message => {
-  AlertManager.show(message, TYPE.success);
+  AlertManager.show(message, TYPE.SUCCESS);
 };
 
 export default AlertManager;

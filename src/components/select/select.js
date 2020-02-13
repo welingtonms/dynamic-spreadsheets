@@ -10,6 +10,7 @@ class Select extends React.PureComponent {
     return (
       <select
         className={classNames('s-select', className)}
+        data-test="c-select"
         {...others}
       />
     );
