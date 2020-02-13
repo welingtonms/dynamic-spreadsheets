@@ -39,7 +39,7 @@ class AlertManager extends React.PureComponent {
           {
             id,
             message,
-            type,
+            type
           },
           messages
         )
@@ -61,7 +61,7 @@ class AlertManager extends React.PureComponent {
     return (
       <div className="s-alert-manager">
         {messages.map(({ id, message, type }) => (
-          <Message mode="dark" key={id} type={type}>
+          <Message mode="dark" key={id} type={type} data-test="c-alert">
             {message}
           </Message>
         ))}

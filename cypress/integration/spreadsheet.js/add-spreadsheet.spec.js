@@ -43,6 +43,10 @@ context('Add spreadsheet', () => {
       .blur();
 
     cy.get(asTestAttr('c-add-column-button')).click();
+    cy.get(asTestAttr('c-alert'))
+      .should('exist')
+      .should('have.class', '-success')
+      .contains(`Column ${title} added!`);
     cy.get(asTestAttr('c-spreadsheet')).should('exist');
     cy.get(asTestAttr('c-column-header'))
       .eq(0) // text
@@ -118,8 +122,12 @@ context('Add spreadsheet', () => {
   it(`should have initially ${INITIAL_AMOUNT_OF_ROWS} rows`, () => {
     cy.get(asTestAttr('c-spreadsheet-body'))
       .find('tr')
-      .should($p => {
-        expect($p).to.have.length(INITIAL_AMOUNT_OF_ROWS);
+      .should($trs => {
+        expect($trs).to.have.length(INITIAL_AMOUNT_OF_ROWS);
       });
+  });
+
+  it(`should show the Add more rows button`, () => {
+    cy.get(asTestAttr('c-add-rows-button')).should('exist');
   });
 });

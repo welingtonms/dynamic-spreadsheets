@@ -6,7 +6,14 @@ import { Icon } from '../icon';
 
 import './message.scss';
 
-const Message = ({ type, borderless, children, className, mode = 'light' }) => {
+const Message = ({
+  type,
+  borderless,
+  children,
+  className,
+  mode = 'light',
+  ...others
+}) => {
   const icon = ICON[type];
 
   return (
@@ -30,6 +37,7 @@ const Message = ({ type, borderless, children, className, mode = 'light' }) => {
         },
         className
       )}
+      {...others}
     >
       {icon && <Icon name={icon} />}
 

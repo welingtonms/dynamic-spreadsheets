@@ -65,7 +65,10 @@ class SpreadsheetContainer extends React.Component {
         <Spreadsheet {...spreadsheet} onChange={this.handleEditSpreadsheet} />
         <Toolbar>
           {!isEmpty(columns) && (
-            <Button onClick={this.handleAddMoreRows}>
+            <Button
+              onClick={this.handleAddMoreRows}
+              data-test="c-add-rows-button"
+            >
               {`Add ${INITIAL_AMOUNT_OF_ROWS} rows`}
             </Button>
           )}
