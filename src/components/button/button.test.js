@@ -1,8 +1,9 @@
 import { findByTestAttr, shallow } from '../../test/helpers';
 import { Button } from './index';
+import generator from '../../test/data-generator';
 
 describe('<Button />', () => {
-  const label = 'Click';
+  const label = generator.word();
 
   it('renders without error', () => {
     const wrapper = shallow(Button, { children: label });

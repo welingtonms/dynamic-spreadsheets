@@ -11,3 +11,6 @@ export const CLOSE_ICON = {
 };
 
 export const EVENT = 's-alert-manager-event';
+
+// Represents how long the message should be kept on screen
+export const DELAY = 5000;

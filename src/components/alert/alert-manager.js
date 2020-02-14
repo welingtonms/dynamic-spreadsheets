@@ -4,7 +4,7 @@ import React from 'react';
 import uuid from 'uuid/v4';
 import { append, tail } from 'ramda';
 
-import { EVENT } from './constants';
+import { DELAY, EVENT } from './constants';
 import { Message } from '../message';
 import { TYPE } from '../message/constants';
 import EventManager from './event-manager';
@@ -52,14 +52,14 @@ class AlertManager extends React.PureComponent {
       this.setState(({ messages }) => ({
         messages: tail(messages)
       }));
-    }, 5000);
+    }, DELAY);
   };
 
   render() {
     const { messages } = this.state;
 
     return (
-      <div className="s-alert-manager">
+      <div className="s-alert-manager" data-test="c-alert-manager">
         {messages.map(({ id, message, type }) => (
           <Message mode="dark" key={id} type={type} data-test="c-alert">
             {message}
@@ -70,6 +70,9 @@ class AlertManager extends React.PureComponent {
   }
 }
 
+/**
+ * Here we use static methods to create new messages through the event emitter.
+ */
 AlertManager.show = (message, type = TYPE.INFO) => {
   EventManager.emit(EVENT, { message, type });
 };
